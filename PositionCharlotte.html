@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rangdiagramm</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+  <style>
+    canvas {
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+    .chart-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="chart-title">Charlotte</div>
+  <canvas id="rangDiagramm" width="400" height="400"></canvas>
+  <script>
+    var ctx = document.getElementById('rangDiagramm').getContext('2d');
+    var chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['25/26'],
+        datasets: [{
+          data: [7],
+          borderColor: 'rgb(75, 192, 192)',
+          tension: 0.1,
+          pointRadius: 5,
+          pointHoverRadius: 8,
+          pointBackgroundColor: 'rgb(75, 192, 192)',
+          pointHoverBackgroundColor: 'rgb(75, 192, 192)',
+          clip: false
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Saisons'
+            }
+          },
+          y: {
+            display: true,
+            title: {
+              display: true,
+              text: 'Rang'
+            },
+            reverse: true,
+            min: 1,
+            max: 16,
+            ticks: {
+              stepSize: 1,
+              callback: function(value, index, values) {
+                return value;
+              }
+            }
+          }
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return 'Rang: ' + context.raw;
+              }
+            }
+          },
+          legend: {
+            display: false // Legende entfernt
+          },
+          datalabels: {
+            color: 'blue',
+            anchor: 'end',
+            align: 'top',
+            formatter: function(value, context) {
+              return '3';
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
